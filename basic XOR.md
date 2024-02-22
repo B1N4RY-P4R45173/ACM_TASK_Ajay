@@ -5,9 +5,9 @@ Since xor is one of the most powerful enecrytions on the internet and we cant di
 since we know the first starting part of the decrypted text that is `recr{`  we can use this to perform a crib dragging attack.
 
 Used cyber chef and used to functions
- from hex
 
- xor
+ 1) From Hex
+ 2) Xor
 
  Then I used the key `recr{` to find out the initial part of text.
 
