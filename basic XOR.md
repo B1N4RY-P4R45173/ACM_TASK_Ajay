@@ -16,4 +16,4 @@ Used cyber chef and used to functions
  Then I used `Bruhh` as key to get the flag.
 
  # Flag Found
-recr{X0r_4int_tough}
+`recr{X0r_4int_tough}`
