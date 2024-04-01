@@ -210,3 +210,33 @@ This gives us `8ca319486bfbbc3663ea0fbe81326349`
 So we do `cat /tmp/8ca319486bfbbc3663ea0fbe81326349`
 
 Password is `QYw0Y2aiA672PsMmh9puTQuhoz8SyR2G`
+
+## Level 23:
+This level is again similar to previous two levels where awe have to abuse the cronjob.
+Here we Just need to write a script and save it in `/var/spool/bandit24/foo` this script gets executed as bandit 24.
+
+so we write a simple script 
+```
+#!/bin/bash
+cat /etc/bandit_pass/bandit24 > /tmp/bandit23/password.txt
+```
+and then running
+`cat /tmp/bandit23/password.txt`
+gives us the password
+Password is `VAfGXJ1PBSsPSnvsjI8p759leLZ9GGar`
+
+## Level 24:
+In this level we gain need to write a script to brute-force all 4 digit lock combinations
+```
+#!/bin/bash
+for i in {0000..9999}
+do
+  echo "VAfGXJ1PBSsPSnvsjI8p759leLZ9GGar" $i;
+done | nc localhost 30002 > test
+```
+and then we need to search for the correct password form that list so we just type
+
+`cat test | grep -v password`
+Password is `p7TaowMYrmu23Ol8hiZh9UvD0O9hpx8d`
+
+# Level 25
