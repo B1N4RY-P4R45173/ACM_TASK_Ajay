@@ -223,6 +223,7 @@ cat /etc/bandit_pass/bandit24 > /tmp/bandit23/password.txt
 and then running
 `cat /tmp/bandit23/password.txt`
 gives us the password
+
 Password is `VAfGXJ1PBSsPSnvsjI8p759leLZ9GGar`
 
 ## Level 24:
@@ -237,6 +238,7 @@ done | nc localhost 30002 > test
 and then we need to search for the correct password form that list so we just type
 
 `cat test | grep -v password`
+
 Password is `p7TaowMYrmu23Ol8hiZh9UvD0O9hpx8d`
 
 # Level 25
