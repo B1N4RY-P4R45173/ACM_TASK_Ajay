@@ -173,3 +173,40 @@ The '&' allows the command to run in the background.
 Next, we use `./suconnect 1234` to get the next password.
 
 Password: NvEJF7oVjkddltPSrdKEFOllh9V1IBcq
+
+## Level 21:
+We find that a cron job is running. So when we check for it, we find.... `* * * * bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null`
+This states it is running cronjob_bandit. So when we check that file we get.
+
+```
+#!/bin/bash
+chmod 644 /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+cat /etc/bandit_pass/bandit22 > /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+```
+This gives us password
+`cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv`
+
+password is `WdDozAdTM2z9DiFEQ2mGlwngMfj4EZff`
+
+## Level 22:
+
+Again we check the cron job of this level. Which gives us
+
+```
+#!/bin/bash
+
+myname=$(whoami)
+mytarget=$(echo I am user $myname | md5sum | cut -d ' ' -f 1)
+
+echo "Copying passwordfile /etc/bandit_pass/$myname to /tmp/$mytarget"
+
+cat /etc/bandit_pass/$myname > /tmp/$mytarget
+```
+
+Now we get the correct file by running the command `echo I am user bandit23 | md5sum | cut -d ' ' -f 1`
+
+This gives us `8ca319486bfbbc3663ea0fbe81326349`
+
+So we do `cat /tmp/8ca319486bfbbc3663ea0fbe81326349`
+
+Password is `QYw0Y2aiA672PsMmh9puTQuhoz8SyR2G`
