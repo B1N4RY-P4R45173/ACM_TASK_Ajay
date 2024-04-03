@@ -59,5 +59,45 @@ xor rax, rax
 and rdi, rsi
 add rax, rdi
 ```
+## challenge 11
+```
+xor rdi, 1
+xor rax, rax
+xor rax, 1
+and rax, rdi
+```
+## challenge 12
+```
+mov rax, [0x404000]
+```
+## challenge 13
+```
+mov [0x404000], rax
+```
+## challenge 14
+```
+mov rax, [0x404000]
+mov rdi, [0x404000]
+add rdi, 0x1337
+mov [0x404000], rdi
+```
+## challenge 15
+```
+mov al, [0x404000]
+```
+## challenge 16
+```
+mov al, [0x404000]
+mov bx, [0x404000]
+mov ecx, [0x404000]
+mov rdx, [0x404000]
+```
+## challenge 17
+```
+mov rax, 0xdeadbeef00001337
+mov rbx, 0xc0ffee0000
+mov [rdi], rax
+mov [rsi], rbx
+```
 
 ### I have solved upto level 25 but I need more time to write the writeups...
