@@ -54,11 +54,10 @@ shr rax, 56
 ```
 ## challenge 10
 ```
-and rax, rdi
-and rax, rsi
+xor rax, rax
 
 and rdi, rsi
-and rax, rdi
+add rax, rdi
 ```
 
 ### I have solved upto level 25 but I need more time to write the writeups...
