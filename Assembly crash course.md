@@ -130,10 +130,60 @@ mov rdx, [rsp + 24]
 add rax, rbx
 add rcx, rdx
 add rax, rcx
-xor rdx, rdx  ; here we ensure rdx is zero because while performing division it concatenates rdx and rax
+xor rdx, rdx  ; here we ensure rdx is zero because while performing division it concatenates rdx and rax. and with idiv rcx instruction, it divides the value in 
+              ; rax with the value in rcx register. 
 mov rcx, 4 
 idiv rcx
-push rax
+push rax      ; Pushing back the value into stack
+```
+## challenge 22
+```
+mov rax, 0x403000
+jmp rax
+```
+## challenge 23
+```
+jmp target
+.rept 0x51 ; here though jmp target directly jumps the control flow to the target label, it is required that the instruction has to be after 0x51 bytes, so we use 
+           ; nop and rept
+nop
+.endr
+target:
+mov rax, 0x1
+```
+## challenge 24
+```
+jmp target
+.rept 0x51
+nop
+.endr
+target:
+pop rdi
+mov rax, 0x403000
+jmp rax
+```
+## challenge 25
+```
+mov ebx,[rdi+4]
+mov ecx,[rdi+8]
+mov edx,[rdi+12]
+mov eax,[rdi]
+cmp eax,0x7f454c46
+jne down1
+add ebx,ecx
+add ebx,edx
+jmp done
+down1:
+cmp eax,0x00005A4D
+jne down2
+sub ebx,ecx
+sub ebx,edx
+jmp done
+down2:
+imul ebx,ecx
+imul ebx,edx
+jmp done
+done:
+mov eax,ebx
 ```
 
-### I have solved upto level 25 but I need more time to write the writeups...
