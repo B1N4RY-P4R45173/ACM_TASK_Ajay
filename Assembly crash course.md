@@ -187,3 +187,35 @@ done:
 mov eax,ebx
 ```
 
+## challenge 26
+```
+.global _start
+.intel_syntax noprefix
+.text
+cmp rdi, 3
+jg greater_than_3
+shl rdi, 3
+add rsi, rdi
+jmp [rsi]
+greater_than_3:
+jmp [rsi + 32]
+```
+
+## challenge 27
+```
+.global _start
+.intel_syntax noprefix
+.text
+loop:
+mov rbx, rcx    ; here we copy the value so as to ensure that when we increment it after shifting, the shifted value doesnt increment
+shl rbx, 3
+add rdi, rbx    ; if we wouldn't have copied rcx to rbx, then now after loop the loop it becomes 8 and if we increment (in line 216)it it becomes 9 and when the 
+                ; loop runs agin we multiply 9 by 8 (loop runs again and we are on line 211 now)
+add rax, [rdi]
+sub rdi, rbx    ; here this step is necessary to preserve the base, other wise rdi will keep on increasing. for better understanding... here we want rdi to  
+                ; increment like rdi, rdi+8, rdi+16, rdi+24 and so on. but without this step it goes like rdi, rdi+8, rdi+8+16, rdi+8+16+24
+inc rcx
+cmp  rcx, rsi
+jle loop
+div rsi
+```
