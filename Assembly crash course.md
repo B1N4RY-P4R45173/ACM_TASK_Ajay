@@ -1,9 +1,9 @@
 # General Code
 
 ```
+.intel_syntax noprefix
 .global_start
 _start:
-.intel_syntax noprefix
 ```
 ## Challenge 1
 ```
