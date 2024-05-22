@@ -242,3 +242,119 @@ and then we need to search for the correct password form that list so we just ty
 Password is `p7TaowMYrmu23Ol8hiZh9UvD0O9hpx8d`
 
 # Level 25
+
+We directly get ssh key in the hime directory. Then we try to find out the bandit26 shell with the command
+
+`cat /etc/passwd | grep bandit26`
+
+which gives us `bandit26:x:11026:11026:bandit level 26:/home/bandit26:/usr/bin/showtext`
+
+checking its contents gives us (cat /usr/bin/showtext)
+```
+#!/bin/sh
+
+export TERM=linux
+
+more ~/text.txt
+exit 0
+```
+It is important to understand how `more` works before proceeding to next level. Here the more command is being used to read from text.txt and display it.
+U can get the password for bandit26 in bandit26 writeup itself
+
+# Level 26
+It is important to read about how `more` command works before starting with level. We now have the private key to log in to bandit26. If you don't know how to use a private key to log in..... please refer to level 13 writeup. So after we try to login... It shows connection to localhost closed and exits it.
+
+So now we try to abuse the way more works.... We shrink the size of the terminal to as little as possible. Then when we try to login again. The `more` waits for user input and we can type `v` and hit enter to enter into the default text editor (vim). Now in the editor we can type `:set shell=/bin/bash` and hit enter after that type `:!cat /etc/bandit_pass/bandit26` to get bandit26 password. `:!` This represents it is a shell argument.
+
+Note: After typing `:set shell=/bin/bash` your cursor might glitch a little but you don't have to worry unless the next command can't be written into the file.
+
+password for bandit26 is `c7GvcKlw9mC7aUQaPx7nwFstuAIBw1o1`
+
+We then find a setuid file (bandit27-do). so we run it to get the password of bandit27 `:!./bandit27-do cat /etc/bandit_pass/bandit27`
+## Recap
+In the first part we figure that the fake shell read a file with more and exit. As the content of the file is not long enough, we need to reduce the size of the terminal to enable more to paging through text one screenful at a time. Once more is running we can type v to open vi and execute command through that tool. then we change the default shell to bash from showtext. and then we read the password of bandit26. Then we get password of bandit27 via the setuid file.
+
+Password for bandit26 is `c7GvcKlw9mC7aUQaPx7nwFstuAIBw1o1`
+
+Password for bandit27 is `YnQpBuifNMas1hcUFk70ZmqkhUU2EuaS`
+
+# Level 27
+In this level we need to clone a reposiory so we use the command `git clone` u can read about git and git clone from github docs.
+
+To solve the level we first create a temp directory and then use then command `git clone ssh://bandit27-git@localhost:2220/home/bandit27-git/repo`
+Here since we cannot specify the port for git with -p tag, i used the notation of writing to port with a colon number after the localhost.we get password in README file of repo directory.
+
+password is `AVanL161y9rsbcJIsFHuw35rjaOM19nR`
+
+# Level 28
+In this level after executing the command `git clone ssh://bandit28-git@localhost:2220/home/bandit28-git/repo` in a temp directory. 
+I tried to read contents of README again, but this time the pasword was all written as XXXXXXXXX. Then I noticed a hidden .git directory in repo. So I thought someone might have updated the README file so i checked it with ` git log`.
+
+And just as i suspected this is what i found in the most recent commit.
+```
+Author: Morla Porla <morla@overthewire.org>
+Date:   Thu Oct 5 06:19:41 2023 +0000
+
+    fix info leak
+```
+so i checked the README file before this commit with the command `git show 14f754b3ba6531a2b89df6ccae6446e8969a41f3 README.md` and i got the pasword.
+
+Password is `tQKvmcwNYcFS6vmPHIUSI3ShmsrQZK8S`
+
+# Level 29
+In this level after executing the command `git clone ssh://bandit28-git@localhost:2220/home/bandit28-git/repo` in a temp directory. It said the <no passwords in production!>. Then I checked the commits and I could only see that the useranme was changed from bandit29 to bandit30. Then I checked the branches with the command `git branch -av` and it showed
+```
+* (HEAD detached at origin/sploits-dev) 07b750d add some silly exploit, just for shit and giggles
+  master                                4364630 fix username
+  remotes/origin/HEAD                   -> origin/master
+  remotes/origin/dev                    1d160de add data needed for development
+  remotes/origin/master                 4364630 fix username
+  remotes/origin/sploits-dev            07b750d add some silly exploit, just for shit and giggles
+```
+which made me check `remotes/origin/dev`. So I checked it out with `git checkout remotes/origin/dev`. And I found the password in README file.
+
+Password is `xbhV3HpNGlTIdnjUrdAlPzc2L6y9EOnS`
+
+# Level 30
+In this level after following all the above steps I stiil coudn't fin adything so I checked the tags with the command `git tag`. And I found the tag called secret.
+after using the command `git show secret`. I got the password for it.
+
+Password is `OoffzGDlzhAlerFJ2cAiz1D41JW1Mhmt`
+
+# Level 31
+In this level after cloning the repo, and checking README. It asked us to push a commit a file called key.txt with content 'May I come in?' to the branch master.
+We can do these by
+```
+echo 'May I come in?' > key.txt
+git add key.txt
+git commit -m `added key.txt`
+git push origin master
+```
+Note: if you get some error with `git add key.txt` try 'git add -f key.txt'
+
+After commiting the changes you get the password.
+
+Password is `rmCBvG56y58BXzv98yZGdO7ATVL5dW8y`
+
+# Level 32
+Now we are back again to base linux after solving a few challenges based on git. in this challenge after we login, we greeted with the UPPERSHELL which basically converts all our inputs to uppercase, so we try $0 which basically the same as `/bin/sh` (changing to your default shell). And after that once we get our interactive shell, we can check the contents of the home directory, and then I noticed that the UPPERCASE was a SETUID file. And so basically we now have the power of bandit33. I confirmed it with the command `whoami` and the output was bandit33. So i just read the password with `cat /etc/bandit_pass/bandit33`
+
+Password is `odHo63fHiFqcWWJG9rLiLDtPm45KzUKy`
+
+# Level 33
+Now that we login to bandit33 with the password. We find a README file in home directory. Which says
+```
+Congratulations on solving the last level of this game!
+
+At this moment, there are no more levels to play in this game. However, we are constantly working
+on new levels and will most likely expand this game with more levels soon.
+Keep an eye out for an announcement on our usual communication channels!
+In the meantime, you could play some of our other wargames.
+
+If you have an idea for an awesome new level, please let us know!
+```
+And By this we completed Bandit. 
+Thankyou for Reading this, I hope now your core linux concepts are strong enough.
+Please star this repository to keep yourself updated with the new solutions, if they pop up.
+                                  Last Updated-  23rd May, 2024 (IST).
+                                  
