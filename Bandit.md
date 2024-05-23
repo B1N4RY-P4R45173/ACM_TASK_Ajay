@@ -98,7 +98,9 @@ Now the file is bz2.
 
 We repeat this until we get the file type as ASCII text.
 
-`cat data` gives us the password as wbWdlBxEir4CaE8LaPhauuOo6pwRmrDw
+`cat data` gives us the password. 
+
+Password is `wbWdlBxEir4CaE8LaPhauuOo6pwRmrDw`
 ##  Level 13:
 For this level we are given an RSA key sshkey.private
 
@@ -130,7 +132,7 @@ Entering the password gives us an 'RSA Private Key'.
 
 Then just copy the key and create a text file, paste the RSA key in it and save it.
 
-Use `ssh -i "file name" bandit17@bandit.labs.overthewire.org -p 2220` to connect to the next level.
+Use `ssh -i "file name" bandit17@bandit.labs.overthewire.org -p 2220` to connect to the next level. password for the next level is available in level 17 writeup 
 ##  Level 17:
 We use the above RSA key to connect using to this level.
 
@@ -140,7 +142,8 @@ We can find the changed line using `diff passwords.old passwords.new`
 
 Alternatively we can use `grep -vf passwords.old passwords.new`
 
-Password: hga5tuuCLF6fFzUpnagiMN8ssu9LFrdg
+Password for level 17 is `VwOSWtCA7lRKkTfbr2IDh6awj9RNZM5e`
+Password for level 18 is  `hga5tuuCLF6fFzUpnagiMN8ssu9LFrdg`
 ##  Level 18:
 This level uses .bashrc to kick you out after entering the password.
 
